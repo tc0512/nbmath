@@ -52,3 +52,22 @@ def newton_solver(fx: list, x0, depth):
         val_fx = polyval(fx, x)
         x = x-val_fx/val_fpx
     return x
+def solve(*args): #统一求解函数接口
+    if len(args)==2: #双参数->一元一次
+        a, b = args
+        return solve_linear_equation_in_one_unknown(a, b)
+    elif len(args)==3: #三参数->一元二次/牛顿法
+        if isinstance(args[0], list): #第一参数为列表->牛顿法
+            fx, x0, depth = args
+            return newton_solver(fx, x0, depth)
+        else: #否则(第一参数为数字)->一元二次
+            a, b, c = args
+            return solve_quadratic_equation(a, b, c)
+    elif len(args)==4: #四参数->一元三次
+        a, b, c, d = args
+        return solve_cubic_equation_in_one_unknown(a, b, c, d)
+    elif len(args)==5: #五参数->一元四次
+        a, b, c, d, e = args
+        return solve_quartic_equation(a, b, c, d, e)
+    else: #都不是->不支持,报错
+        raise NotImplementedError("don't support this type of parameter")
