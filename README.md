@@ -4,5 +4,5 @@
 
 ## 安装
 ```bash
-pip install math-utils
+pip install nbmath
 ```
