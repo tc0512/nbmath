@@ -29,3 +29,39 @@ class Line: #线段
                 return f"y={k}x-{-b}{{{x_min}≤x≤{x_max}}}"
         else:
             return f"y={b}{{{x_min}≤x≤{x_max}}}"
+class Circle:
+    def __init__(self, O, r):
+        self.O = O
+        self.r = r
+    def area(self):
+        return math.pi*self.r**2
+    def circumference(self):
+        return 2*math.pi*self.r
+    def diameter(self):
+        return 2*self.r
+    def contains(self, point):
+        return dist(self.O, point)<=self.r
+    def expression(self):
+        a = self.O.x
+        b = self.O.y
+        if a>0:
+            if b>0:
+                return f"(x-{a})^2+(y-{b})^2={self.r**2}"
+            elif b==0:
+                return f"(x-{a})^2+y^2={self.r**2}"
+            elif b<0:
+                return f"(x-{a})^2+(y+{-b})^2={self.r**2}"
+        elif a==0:
+            if b>0:
+                return f"x^2+(y-{b})^2={self.r**2}"
+            elif b==0:
+                return f"x^2+y^2={self.r**2}"
+            elif b<0:
+                return f"x^2+(y+{-b})^2={self.r**2}"
+        elif a<0:
+            if b>0:
+                return f"(x+{-a})^2+(y-{b})^2={self.r**2}"
+            elif b==0:
+                return f"(x+{-a})^2+y^2={self.r**2}"
+            elif b<0:
+                return f"(x+{-a})^2+(y+{-b})^2={self.r**2}"
