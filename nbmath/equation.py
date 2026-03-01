@@ -31,3 +31,24 @@ def diff(fx: list): #求导
     for i in range(n-1, 0, -1):
         fpx.append(i*fx[i])
     return fpx
+def polyval(f: list, x): #代入求值
+    if len(f)==0:
+        return float('nan')
+    elif len(f)==1:
+        return f[0]
+    fx = 0
+    power = len(f)-1
+    for i in f:
+        fx+=i*x**power
+        power-=1
+    return fx
+def newton_solver(fx: list, x0, depth):
+    x = x0
+    for i in range(depth):
+        fpx = diff(fx)
+        val_fpx = polyval(fpx, x)
+        if val_fpx==0:
+            raise ValueError("the derivative is zero so cannot iterate")
+        val_fx = polyval(fx, x)
+        x = x-val_fx/val_fpx
+    return x
