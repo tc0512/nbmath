@@ -42,30 +42,32 @@ def polyval(f: list, x): #代入求值
         fx+=i*x**power
         power-=1
     return fx
-def newton_solver(fx: list, x0, depth):
+def newton_solver(fx: list, x0, depth, tol):
     x = x0
+    fpx = diff(fx)
     for i in range(depth):
-        fpx = diff(fx)
+        val_fx = polyval(fx, x)
+        if abs(val_fx)<tol: #修复：添加收敛判断
+            return x
         val_fpx = polyval(fpx, x)
         if val_fpx==0:
             raise ValueError("the derivative is zero so cannot iterate")
-        val_fx = polyval(fx, x)
         x = x-val_fx/val_fpx
     return x
 def solve(*args): #统一求解函数接口
     if len(args)==2: #双参数->一元一次
         a, b = args
         return solve_linear_equation_in_one_unknown(a, b)
-    elif len(args)==3: #三参数->一元二次/牛顿法
+    elif len(args)==3: #三参数->一元二次
+        a, b, c = args
+        return solve_quadratic_equation(a, b, c)
+    elif len(args)==4: #四参数->一元三次/牛顿法
         if isinstance(args[0], list): #第一参数为列表->牛顿法
-            fx, x0, depth = args
-            return newton_solver(fx, x0, depth)
-        else: #否则(第一参数为数字)->一元二次
-            a, b, c = args
-            return solve_quadratic_equation(a, b, c)
-    elif len(args)==4: #四参数->一元三次
-        a, b, c, d = args
-        return solve_cubic_equation_in_one_unknown(a, b, c, d)
+            fx, x0, depth, tol = args
+            return newton_solver(fx, x0, depth, tol)
+        else: #第一参数不是列表->一元三次
+            a, b, c, d = args
+            return solve_cubic_equation_in_one_unknown(a, b, c, d)
     elif len(args)==5: #五参数->一元四次
         a, b, c, d, e = args
         return solve_quartic_equation(a, b, c, d, e)
