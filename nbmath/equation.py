@@ -49,6 +49,8 @@ def newton_solver(fx: list, x0, depth, tol):
         val_fx = polyval(fx, x)
         if abs(val_fx)<tol: #修复：添加收敛判断
             return x
+        if abs(x)>1e8: #修复，增加发散判断
+            raise ValueError("the iteration diverges")
         val_fpx = polyval(fpx, x)
         if val_fpx==0:
             raise ValueError("the derivative is zero so cannot iterate")
