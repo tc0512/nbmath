@@ -42,7 +42,7 @@ def polyval(f: list, x): #代入求值
         fx+=i*x**power
         power-=1
     return fx
-def newton_solver(fx: list, x0, depth, tol):
+def newton_solver(fx: list, x0, depth, tol): #牛顿迭代
     x = x0
     fpx = diff(fx)
     for i in range(depth):
