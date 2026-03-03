@@ -21,40 +21,32 @@ def solve_quartic_equation(a, b, c, d, e):
     x4 = sqrt(-2*(-e/a + b*d/(4*a**2) - c**2/(12*a**2))/(3*((c/a - 3*b**2/(8*a**2))**3/216 - (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/6 + sqrt((-e/a + b*d/(4*a**2) - c**2/(12*a**2))**3/27 + (-(c/a - 3*b**2/(8*a**2))**3/108 + (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/3 - (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/8)**2/4) + (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/16)**(1/3)) + 2*((c/a - 3*b**2/(8*a**2))**3/216 - (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/6 + sqrt((-e/a + b*d/(4*a**2) - c**2/(12*a**2))**3/27 + (-(c/a - 3*b**2/(8*a**2))**3/108 + (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/3 - (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/8)**2/4) + (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/16)**(1/3) - 2*c/(3*a) + b**2/(4*a**2))/2 + sqrt(-(2*d/a - b*c/a**2 + b**3/(4*a**3))/sqrt(-2*(-e/a + b*d/(4*a**2) - c**2/(12*a**2))/(3*((c/a - 3*b**2/(8*a**2))**3/216 - (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/6 + sqrt((-e/a + b*d/(4*a**2) - c**2/(12*a**2))**3/27 + (-(c/a - 3*b**2/(8*a**2))**3/108 + (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/3 - (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/8)**2/4) + (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/16)**(1/3)) + 2*((c/a - 3*b**2/(8*a**2))**3/216 - (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/6 + sqrt((-e/a + b*d/(4*a**2) - c**2/(12*a**2))**3/27 + (-(c/a - 3*b**2/(8*a**2))**3/108 + (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/3 - (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/8)**2/4) + (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/16)**(1/3) - 2*c/(3*a) + b**2/(4*a**2)) + 2*(-e/a + b*d/(4*a**2) - c**2/(12*a**2))/(3*((c/a - 3*b**2/(8*a**2))**3/216 - (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/6 + sqrt((-e/a + b*d/(4*a**2) - c**2/(12*a**2))**3/27 + (-(c/a - 3*b**2/(8*a**2))**3/108 + (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/3 - (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/8)**2/4) + (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/16)**(1/3)) - 2*((c/a - 3*b**2/(8*a**2))**3/216 - (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/6 + sqrt((-e/a + b*d/(4*a**2) - c**2/(12*a**2))**3/27 + (-(c/a - 3*b**2/(8*a**2))**3/108 + (c/a - 3*b**2/(8*a**2))*(e/a - b*d/(4*a**2) + b**2*c/(16*a**3) - 3*b**4/(256*a**4))/3 - (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/8)**2/4) + (d/a - b*c/(2*a**2) + b**3/(8*a**3))**2/16)**(1/3) - 4*c/(3*a) + b**2/(2*a**2))/2 - b/(4*a)
     return [x1, x2, x3, x4]
 def diff(fx: list): #求导
-    if len(fx)==0:
-        return float('nan')
-    elif len(fx)==1:
-        return 0
     n = len(fx)
-    fx.reverse()
-    fpx = []
-    for i in range(n-1, 0, -1):
-        fpx.append(i*fx[i])
-    return fpx
-def polyval(f: list, x): #代入求值
-    if len(f)==0:
+    if n == 0:
         return float('nan')
-    elif len(f)==1:
+    elif n == 1:
+        return [0]
+    return [fx[i] * (n - 1 - i) for i in range(n - 1)]
+def polyval(f: list, x): #代入求值
+    n = len(f)
+    if n == 0:
+        return float('nan')
+    elif n == 1:
         return f[0]
-    fx = 0
-    power = len(f)-1
-    for i in f:
-        fx+=i*x**power
-        power-=1
-    return fx
-def newton_solver(fx: list, x0, depth, tol): #牛顿迭代
+    return sum(coef * x ** (n - 1 - i) for i, coef in enumerate(f))
+def newton_solver(fx: list, x0, depth, tol): #牛顿法
     x = x0
     fpx = diff(fx)
     for i in range(depth):
         val_fx = polyval(fx, x)
-        if abs(val_fx)<tol: #修复：添加收敛判断
+        if abs(val_fx) < tol:
             return x
-        if abs(x)>1e8: #修复，增加发散判断
+        if abs(x) > 1e8:
             raise ValueError("the iteration diverges")
         val_fpx = polyval(fpx, x)
-        if val_fpx==0:
+        if val_fpx == 0:
             raise ValueError("the derivative is zero so cannot iterate")
-        x = x-val_fx/val_fpx
+        x = x - val_fx / val_fpx
     return x
 def solve(*args): #统一求解函数接口
     if len(args)==2: #双参数->一元一次
