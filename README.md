@@ -41,6 +41,7 @@ print(pi()) #3.141592653589793
 - `fac`阶乘 `diff`多项式求导
 - `np.linspace`纯python实现
 - `polyval`多项式代入求值
+- `timer`计时器
 
 ## 示例代码
 ```python

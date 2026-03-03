@@ -1,26 +1,18 @@
 import time
 def diff(fx: list): #求导
-    if len(fx)==0:
-        return float('nan')
-    elif len(fx)==1:
-        return 0
     n = len(fx)
-    fx.reverse()
-    fpx = []
-    for i in range(n-1, 0, -1):
-        fpx.append(i*fx[i])
-    return fpx
-def polyval(f: list, x): #代入求值
-    if len(f)==0:
+    if n == 0:
         return float('nan')
-    elif len(f)==1:
+    elif n == 1:
+        return [0]
+    return [fx[i] * (n - 1 - i) for i in range(n - 1)]
+def polyval(f: list, x): #代入求值
+    n = len(f)
+    if n == 0:
+        return float('nan')
+    elif n == 1:
         return f[0]
-    fx = 0
-    power = len(f)-1
-    for i in f:
-        fx+=i*x**power
-        power-=1
-    return fx
+    return sum(coef * x ** (n - 1 - i) for i, coef in enumerate(f))
 def linspace(start, end, steps): #np.linspace的纯python实现
     if steps==0:
         return []
