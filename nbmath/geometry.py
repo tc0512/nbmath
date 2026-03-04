@@ -16,7 +16,11 @@ class Line: #线段
     def midpoint(self): #中点
         return Point((self.p1.x+self.p2.x)/2, (self.p1.y+self.p2.y)/2)
     def expression(self): #表达式
-        k = (self.p2.y-self.p1.y)/(self.p2.x-self.p1.y)
+        if self.p2.x==self.p1.x:
+            y_min = min(self.p1.y, self.p2.y)
+            y_max = max(self.p1.y, self.p2.y)
+            return f"x={self.p1.x}{{{y_min}≤y≤{y_max}}}"
+        k = (self.p2.y-self.p1.y)/(self.p2.x-self.p1.x)
         b = self.p1.y-k*self.p1.x
         x_min = min(self.p1.x, self.p2.x)
         x_max = max(self.p1.x, self.p2.x)

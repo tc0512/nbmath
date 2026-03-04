@@ -70,3 +70,5 @@ def scatter(points: list, color: str): #散点图
         t.goto(i)
         t.dot(5)
     t.update()
+def keep_window():
+    t.done()
