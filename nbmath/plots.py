@@ -5,6 +5,7 @@ def window(length, height): #窗口(t.setup)
     global _length, _height
     _length, _height = length, height
     t.setup(length, height)
+    t.title("Python Nbmath Ploting")
     t.hideturtle()
     t.speed(0)
     t.tracer(0)
