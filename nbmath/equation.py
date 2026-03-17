@@ -91,6 +91,20 @@ def newton_solver(fx: list, x0, depth, tol): #牛顿法
             raise ValueError("the derivative is zero so cannot iterate")
         x = x - val_fx / val_fpx
     return x
+def inequality_larger(a, b): #ax+b>0
+    if a==0:
+        return float('nan')
+    elif a>0:
+        return f"x>{-b/a}"
+    elif a<0:
+        return f"x<{-b/a}"
+def inequality_larger_and_equal(a, b): #ax+b≥0
+    if a==0:
+        return float('nan')
+    elif a>0:
+        return f"x≥{-b/a}"
+    elif a<0:
+        return f"x≤{-b/a}"
 def solve(*args): #统一求解函数接口
     if len(args)==2: #双参数->一元一次
         a, b = args
