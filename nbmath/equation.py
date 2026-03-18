@@ -105,13 +105,42 @@ def inequality_larger_and_equal(a, b): #ax+b≥0
         return f"x≥{-b/a}"
     elif a<0:
         return f"x≤{-b/a}"
+def inequality_lower_and_equal(a, b): #ax+b≤0
+    if a==0:
+        return float('nan')
+    elif a>0:
+        return f"x≤{-b/a}"
+    elif a<0:
+        return f"x≥{-b/a}"
+def inequality_lower(a, b): #ax+b<0
+    if a==0:
+        return float('nan')
+    elif a>0:
+        return f"x<{-b/a}"
+    elif a<0:
+        return f"x>{-b/a}"
+def inequality(a, b, sym: str): #不等式统一接口
+    if sym==">":
+        return inequality_larger(a, b)
+    elif sym==">=":
+        return inequality_larger_and_equal(a, b)
+    elif sym=="<=":
+        return inequality_lower_and_equal(a, b)
+    elif sym=="<":
+        return inequality_lower(a, b)
+    else:
+        raise NotImplementedError("don't support this type of parameter")
 def solve(*args): #统一求解函数接口
     if len(args)==2: #双参数->一元一次
         a, b = args
         return solve_linear_equation_in_one_unknown(a, b)
-    elif len(args)==3: #三参数->一元二次
-        a, b, c = args
-        return solve_quadratic_equation(a, b, c)
+    elif len(args)==3: #三参数->一元二次/不等式
+        if isinstance(args[2], str): #第三参数是字符串->不等式
+            a, b, sym = args
+            return inequality(a, b, sym)
+        else: #第三参数不是字符串->一元二次
+            a, b, c = args
+            return solve_quadratic_equation(a, b, c)
     elif len(args)==4: #四参数->一元三次/牛顿法
         if isinstance(args[0], list): #第一参数为列表->牛顿法
             fx, x0, depth, tol = args
