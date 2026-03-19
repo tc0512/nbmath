@@ -4,7 +4,7 @@
 
 ## 安装
 ```bash
-pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v0.1.6/nbmath-0.1.6-py3-none-any.whl
+pip install https://github.com/tc0512/nbmath/releases/download/v0.1.7/nbmath-0.1.7-py3-none-any.whl
 ```
 
 ## 快速开始
@@ -51,6 +51,7 @@ from nbmath.stats import mode
 #求解x^4-10x^2+9=0
 roots = solve(1, 0, -10, 0, 9)
 print(roots) #接近±1,±3，浮点误差可能存在，请以实际使用为准
+print(solve(2, 3, ">") #x>-1.5
 
 data = [1, 1, 2, 3, 4]
 print(mode(data)) #[1]
