@@ -31,7 +31,7 @@ def ndiff1(f, x): #数值导
     return (f(x+H)-f(x-H))/(2*H)
 def ndiff2(f, x): #数值二阶导
     H = 1e-4
-    return (f(x+H)-f(x-H)-2*f(x))/(H**2)
+    return (f(x+H)+f(x-H)-2*f(x))/(H**2)
 def newton(f, x0, tol, max_iter: int): #牛顿法
     x = x0
     for i in range(max_iter):
