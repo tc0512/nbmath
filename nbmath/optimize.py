@@ -9,7 +9,8 @@ def brute(f, x_min, x_max, steps: int): #咆哮算法
         x+=step_length
     fun = min(results)
     ind = results.index(fun)
-    return {"x": results[ind], "fun": fun}
+    x_opt = x_min+ind*step_length
+    return {"x": x_opt, "fun": fun}
 def golden_section(f, x_min, x_max, tol): #黄金分割法
     phi = (math.sqrt(5)-1)/2
     x1 = x_max-phi*(x_max-x_min)

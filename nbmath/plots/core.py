@@ -15,6 +15,7 @@ def setax(llx, lly, urx, ury): #设置坐标系范围(t.setworldcoordinates)
     _llx, _lly, _urx , _ury = llx, lly, urx, ury
     t.setworldcoordinates(llx, lly, urx, ury)
 def drawaxhline(): #绘制坐标轴
+    t.hideturtle()
     global _length, _height, _llx, _lly, _urx , _ury
     if None in (_length, _height):
         raise ValueError("please use 'window' first to create a window")
@@ -35,6 +36,7 @@ def drawaxhline(): #绘制坐标轴
     t.penup()
     t.update()
 def point(x, y, color: str, size: int, label: str): #描点
+    t.hideturtle()
     t.penup()
     t.goto(x, y)
     t.pencolor(color)
@@ -43,6 +45,7 @@ def point(x, y, color: str, size: int, label: str): #描点
     t.penup()
     t.update()
 def line(x: list, y: list, color: str, linewidth: int): #绘制线段
+    t.hideturtle()
     t.penup()
     t.goto(x[0], y[0])
     t.pendown()
@@ -52,6 +55,7 @@ def line(x: list, y: list, color: str, linewidth: int): #绘制线段
     t.pensize(1)
     t.update()
 def plot_function(f, x_min, x_max, color: str, linewidth: int, steps: int): #函数图像y=f(x)
+    t.hideturtle()
     t.penup()
     dx = (x_max-x_min)/steps
     for i in range(steps+1):
@@ -64,12 +68,13 @@ def plot_function(f, x_min, x_max, color: str, linewidth: int, steps: int): #函
             t.pensize(linewidth)
     t.penup()
     t.update()
-def scatter(points: list, color: str): #散点图
+def scatter(points: list, color: str, size: int): #散点图
+    t.hideturtle()
     t.penup()
     t.pencolor(color)
     for i in points:
         t.goto(i)
-        t.dot(5)
+        t.dot(size)
     t.update()
 def keep_window():
     t.done()
