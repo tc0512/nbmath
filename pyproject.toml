@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nbmath"
-version = "0.2.0"
+version = "0.2.3"
 description = "python零依赖数学库"
 authors = [
     {name = "tc0512", email = "tancheng_0812@qq.com"}
