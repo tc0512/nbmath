@@ -4,7 +4,7 @@
 
 ## 安装
 ```bash
-pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v0.2.3/nbmath-0.2.3-py3-none-any.whl
+pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v0.2.4/nbmath-0.2.4-py3-none-any.whl
 ```
 
 ## 快速开始
@@ -69,7 +69,8 @@ os.system("python -m nbmath.plots.examples.cantor_stair")
 from nbmath.equation import solve
 from nbmath.stats import mode
 from nbmath.optimize import simulated_annealing
-from nbmath.plots import plot_function as pf
+from nbmath import plots as plt
+import math
 
 #求解x^4-10x^2+9=0
 roots = solve(1, 0, -10, 0, 9)
@@ -88,7 +89,11 @@ TOL = 1e-6
 print(simulated_annealing(F, -5, 5, TEMP, COOLING, STEPS, TOL)) #{'x': -1.581998612252256, 'fun': -2.249992603725974}
 
 #绘制y=cos(x)
-pf()
+plt.window(800, 600)
+plt.setax(-2*math.pi, -1.5*math.pi, 2*math.pi, 1.5*math.pi)
+plt.drawaxhline()
+plt.plot_function(lambda x: math.sin(x), -2*math.pi, 2*math.pi)
+plt.keep_window()
 ```
 
 ## 许可证
