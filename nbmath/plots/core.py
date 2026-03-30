@@ -1,4 +1,6 @@
 import turtle as t
+import platform
+python_version = platform.python_version()
 _length = _height = None
 _llx = _lly = _urx = _ury = None
 def window(length, height): #窗口(t.setup)
@@ -10,6 +12,8 @@ def window(length, height): #窗口(t.setup)
     t.speed(0)
     t.tracer(0)
     t.penup()
+    print(f"Python{python_version} nbmath1.0.0")
+    print("enjoy plotting!")
 def setax(llx, lly, urx, ury): #设置坐标系范围(t.setworldcoordinates)
     global _llx, _lly, _urx , _ury
     _llx, _lly, _urx , _ury = llx, lly, urx, ury
