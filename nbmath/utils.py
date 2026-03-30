@@ -58,3 +58,7 @@ def fac(x): #阶乘
     elif x<0 and int(x)==x:
         return float('nan')
     return math.gamma(x+1)
+def is_even(x: int): #偶数判断
+    return x%2==0
+def is_odd(x: int): #奇数判断
+    return x%2==1
