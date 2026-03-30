@@ -42,7 +42,7 @@ print(is_odd(99999)) #True
 - 牛顿迭代法解高次方程
 - 不等式
 - 统一接口`solve`
-### 几何模块`nbmath.geometry`
+### 几何模块`nbmath.geo`
 - 点`Point`
 - 线段`Line`
 - 圆`Circle`
