@@ -54,7 +54,7 @@ def line(x: list, y: list, color: str, linewidth: int): #绘制线段
     t.goto(x[1], y[1])
     t.pensize(1)
     t.update()
-def plot_function(f, x_min, x_max, color: str, linewidth: int, steps: int): #函数图像y=f(x)
+def fun(f, x_min, x_max, color: str, linewidth: int, steps: int): #函数图像y=f(x)
     t.hideturtle()
     t.penup()
     dx = (x_max-x_min)/steps
