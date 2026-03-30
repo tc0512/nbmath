@@ -53,6 +53,7 @@ os.system("python -m nbmath.plots.examples.cantor_stair")
 - `np.linspace`纯python实现
 - `polyval`多项式代入求值
 - `timer`计时器
+- `is_even` `is_odd`奇偶数判断
 ### 优化算法模块`nbmath.optimize`
 - `brute`咆哮算法
 - `golden_section`黄金分割法

@@ -68,13 +68,16 @@ def plot_function(f, x_min, x_max, color: str, linewidth: int, steps: int): #函
             t.pensize(linewidth)
     t.penup()
     t.update()
-def scatter(points: list, color: str, size: int): #散点图
+def scatter(points: list, color: str, size: list): #散点图
+    n = len(points)
+    if n!=len(size):
+        raise ValueError("length of points and size is not equal")
     t.hideturtle()
     t.penup()
     t.pencolor(color)
-    for i in points:
-        t.goto(i)
-        t.dot(size)
+    for i in range(n):
+        t.goto(points[i])
+        t.dot(size[i])
     t.update()
 def keep_window():
     t.done()

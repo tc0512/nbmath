@@ -27,7 +27,7 @@ def main():
         x = ALPHA*math.sin(A*i+DELTA)
         y = BETA*math.sin(B*i)
         p.append((x, y))
-    plt.scatter(p, "green", 1)
+    plt.scatter(p, "green", [1]*5000)
     plt.keep_window()
 if __name__ == "__main__":
     main()

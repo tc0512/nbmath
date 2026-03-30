@@ -24,7 +24,7 @@ def main():
         x = r*math.cos(i)
         y = r*math.sin(i)
         p.append((x, y))
-    plt.scatter(p, "red", 2)
+    plt.scatter(p, "red", [2]*2000)
     plt.keep_window()
 if __name__ == "__main__":
     main()
