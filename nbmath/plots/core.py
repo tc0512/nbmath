@@ -79,5 +79,16 @@ def scatter(points: list, color: str, size: list): #散点图
         t.goto(points[i])
         t.dot(size[i])
     t.update()
+def rect(llx, lly, width, height, color):
+    t.hideturtle()
+    t.penup()
+    t.pencolor(color)
+    t.goto(llx, lly)
+    for i in range(2):
+        t.fd(width)
+        t.lt(90)
+        t.fd(height)
+        t.lt(90)
+    t.update()
 def keep_window():
     t.done()

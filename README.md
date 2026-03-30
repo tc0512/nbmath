@@ -12,6 +12,7 @@ pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/downlo
 from nbmath.equation import solve
 from nbmath.const import pi
 from nbmath.optimize import newton
+from nbmath.utils import is_odd
 import os
 
 #解方程
@@ -27,6 +28,9 @@ print(newton(lambda x: x**2+6*x+9, 1.5, TOL, MAX_ITER)) #x接近-3,y接近0(有�
 
 #绘制康托尔阶梯
 os.system("python -m nbmath.plots.examples.cantor_stair")
+
+#判断是否为奇数
+print(is_odd(99999)) #True
 ```
 
 ## 模块介绍
@@ -62,7 +66,8 @@ os.system("python -m nbmath.plots.examples.cantor_stair")
 - `simulated_annealing`模拟退火
 ### 绘图模块`nbmath.plots`
 - `point`描点 `scatter`散点图
-- `line`线段 `plot_function`绘制函数F(x)
+- `line`线段 `fun`绘制函数F(x)
+- `rect`矩形
 - `mandelbrot` `heart`等共5个示例图案
 
 ## 示例代码
@@ -94,6 +99,7 @@ plt.window(800, 600)
 plt.setax(-2*math.pi, -1.5*math.pi, 2*math.pi, 1.5*math.pi)
 plt.drawaxhline()
 plt.plot_function(lambda x: math.sin(x), -2*math.pi, 2*math.pi)
+plt.rect(1, 1, 1.5, 0.5, "red") #绘制一个左下角(1,1),长1.5,宽0.5的红色矩形
 plt.keep_window()
 ```
 
