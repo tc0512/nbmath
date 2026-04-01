@@ -1,6 +1,6 @@
 from . import const
 from . import equation
-from . import geometry
+from . import geo
 from . import plots
 from . import stats
 from . import utils
@@ -8,9 +8,9 @@ from . import utils
 __all__ = [
     'const',
     'equation', 
-    'geometry',
+    'geo',
     'plots',
     'stats',
     'utils'
 ]
-__version__ = "1.0.0"
+__version__ = "1.0.3"
