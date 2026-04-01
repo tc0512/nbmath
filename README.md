@@ -107,4 +107,4 @@ plt.keep_window()
 MIT
 
 **警告**
-nbmath-1.0.0有bug，请下载nbmath-1.0.3
+·nbmath-1.0.0有bug，请下载nbmath-1.0.4
