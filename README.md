@@ -105,3 +105,6 @@ plt.keep_window()
 
 ## 许可证
 MIT
+
+**警告**
+nbmath-1.0.0有bug，请下载nbmath-1.0.3
