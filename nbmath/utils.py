@@ -80,3 +80,12 @@ def ones(m: int, n: int): #m行n列的全一矩阵
     for i in range(m):
         mat.append([1]*n)
     return mat
+def eye(n: int): #单位矩阵
+    if n<0:
+        raise ValueError("size of a matrix cannot be a negative number")
+    if n==1:
+        return [1]
+    mat = zeros(n, n)
+    for i in range(n):
+        mat[i][i] = 1
+    return mat
