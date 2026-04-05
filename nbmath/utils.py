@@ -65,6 +65,8 @@ def is_odd(x: int): #奇数判断
 def zeros(m: int, n: int): #m行n列的全零矩阵
     if m<0 or n<0:
         raise ValueError("size of a matrix cannot be a negative number")
+    if m==0:
+        return []
     if m==1:
         return [0]*n
     mat = []
@@ -74,6 +76,8 @@ def zeros(m: int, n: int): #m行n列的全零矩阵
 def ones(m: int, n: int): #m行n列的全一矩阵
     if m<0 or n<0:
         raise ValueError("size of a matrix cannot be a negative number")
+    if m==0:
+        return []
     if m==1:
         return [1]*n
     mat = []
@@ -83,6 +87,8 @@ def ones(m: int, n: int): #m行n列的全一矩阵
 def eye(n: int): #单位矩阵
     if n<0:
         raise ValueError("size of a matrix cannot be a negative number")
+    if n==0:
+        return []
     if n==1:
         return [1]
     mat = zeros(n, n)
