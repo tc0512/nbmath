@@ -68,7 +68,7 @@ def gradient_descent(f, x0, lr, tol, max_iter: int): #梯度下降
     """
     f：要求解的函数
     x0：初始猜测
-    lr：学习率
+    lr：学习率，一般取0.06
     tol：容差
     max_iter：迭代次数
     """
@@ -84,9 +84,9 @@ def simulated_annealing(f, x_min, x_max, temp, cooling, steps, tol): #模拟退�
     f：要求解的函数
     x_min：猜测区间最小
     x_max：猜测区间最大
-    temp：“温度”
-    cooling：冷却系数
-    steps：每步迭代次数
+    temp：“温度”，一般取100
+    cooling：冷却系数，一般取0.95
+    steps：每步迭代次数，一般取1000
     tol：容差
     """
     x = random.uniform(x_min, x_max)
