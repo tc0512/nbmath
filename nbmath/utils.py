@@ -95,3 +95,13 @@ def eye(n: int): #单位矩阵
     for i in range(n):
         mat[i][i] = 1
     return mat
+def add_2d_to_1d(A: list, b: list):
+    n = len(A[0])
+    if n!=len(b):
+        raise ValueError("length of two lists didn't matched")
+    m = len(A)
+    mat = zeros(m, n)
+    for i in range(m):
+        for j in range(n):
+            mat[i][j] = A[i][j]+b[j]
+    return mat

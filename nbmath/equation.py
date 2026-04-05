@@ -91,6 +91,23 @@ def newton_solver(fx: list, x0, depth, tol): #牛顿法
             raise ValueError("the derivative is zero so cannot iterate")
         x = x - val_fx / val_fpx
     return x
+def linear_system(A, b): #线性方程组
+    if len(A)!=len(b):
+        raise ValueError("this is overdetermined system of equations")
+    aug = [row[:] for row in A]
+    for i in range(len(aug)):
+        aug[i].append(b[i])
+    m, n = len(aug), len(A[0])
+    for k in range(n):
+        for i in range(k+1, m):
+            factor = aug[i][k] / aug[k][k]
+            for j in range(k, n+1):
+                aug[i][j] -= factor * aug[k][j]
+    x = [0]*n
+    for i in range(n-1, -1, -1):
+        s = sum(aug[i][j]*x[j] for j in range(i+1, n))
+        x[i] = (aug[i][n]-s)/aug[i][i]
+    return x
 def inequality_larger(a, b): #ax+b>0
     if a==0:
         return float('nan')
@@ -131,7 +148,10 @@ def inequality(a, b, sym: str): #不等式统一接口
     else:
         raise NotImplementedError("don't support this type of parameter")
 def solve(*args): #统一求解函数接口
-    if len(args)==2: #双参数->一元一次
+    if len(args)==2: #双参数->一元一次/线性方程组
+        if isinstance(args[0], list) and isinstance(args[1], list): #全是列表->线性方程组
+            A, b = args
+            return linear_system(A, b)
         a, b = args
         return solve_linear_equation_in_one_unknown(a, b)
     elif len(args)==3: #三参数->一元二次/不等式
