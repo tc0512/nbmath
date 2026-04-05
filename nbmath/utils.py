@@ -28,7 +28,7 @@ def timer(func): #计时器
     def wrapper(*args, **kwargs):
         start = time.time()
         result = func(*args, **kwargs)
-        print(f"{func.__name__} 耗时: {time.time()-start:.4f}秒")
+        print(f"function {func.__name__} used {time.time()-start:.4f} seconds")
         return result
     return wrapper
 def gcd(a: int, b: int): #最大公约数
@@ -62,3 +62,21 @@ def is_even(x: int): #偶数判断
     return x%2==0
 def is_odd(x: int): #奇数判断
     return x%2==1
+def zeros(m: int, n: int): #m行n列的全零矩阵
+    if m<0 or n<0:
+        raise ValueError("size of a matrix cannot be a negative number")
+    if m==1:
+        return [0]*n
+    mat = []
+    for i in range(m):
+        mat.append([0]*n)
+    return mat
+def ones(m: int, n: int): #m行n列的全一矩阵
+    if m<0 or n<0:
+        raise ValueError("size of a matrix cannot be a negative number")
+    if m==1:
+        return [1]*n
+    mat = []
+    for i in range(m):
+        mat.append([1]*n)
+    return mat
