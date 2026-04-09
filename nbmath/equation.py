@@ -147,13 +147,6 @@ def inequality(a, b, sym: str): #不等式统一接口
         return inequality_lower(a, b)
     else:
         raise NotImplementedError("don't support this type of parameter")
-def inequality_system(ine1: list, ine2: list):
-    if len(ine1)!=3 or len(ine2)!=3:
-        raise ValueError("each inequality must have 3 elements:[a, b, sym]")
-    a1, b1, sym1 = ine1
-    a2, b2, sym2 = ine2
-    sol1 = inequality(a1, b1, sym1)
-    sol2 = inequality(a2, b2, sym2)
 def solve(*args): #统一求解函数接口
     if len(args)==2: #双参数->一元一次/线性方程组
         if isinstance(args[0], list) and isinstance(args[1], list): #全是列表->线性方程组
