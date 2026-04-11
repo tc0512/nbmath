@@ -12,7 +12,7 @@ pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/downlo
 from nbmath.equation import solve
 from nbmath.const import pi
 from nbmath.optimize import newton
-from nbmath.utils import is_odd
+from nbmath.utils import is_odd, zeros
 import os
 
 #解方程
@@ -31,6 +31,9 @@ os.system("python -m nbmath.plots.examples.cantor_stair")
 
 #判断是否为奇数
 print(is_odd(99999)) #True
+
+#生成10×10的全零矩阵
+print(zeros(10, 10))
 ```
 
 ## 模块介绍
@@ -41,6 +44,7 @@ print(is_odd(99999)) #True
 - 一元一次/二次/三次/四次方程求解
 - 牛顿迭代法解高次方程
 - 不等式
+- 高斯消元解线性方程组
 - 统一接口`solve`
 ### 几何模块`nbmath.geo`
 - 点`Point`
@@ -58,6 +62,7 @@ print(is_odd(99999)) #True
 - `polyval`多项式代入求值
 - `timer`计时器
 - `is_even` `is_odd`奇偶数判断
+- `eye`单位矩阵 `ones` `zeros`全一/全零矩阵
 ### 优化算法模块`nbmath.optimize`
 - `brute`咆哮算法
 - `golden_section`黄金分割法
@@ -68,7 +73,7 @@ print(is_odd(99999)) #True
 - `point`描点 `scatter`散点图
 - `line`线段 `fun`绘制函数F(x)
 - `rect`矩形
-- `mandelbrot` `heart`等共5个示例图案
+- `mandelbrot` `heart`等共6个示例图案
 
 ## 示例代码
 ```python
