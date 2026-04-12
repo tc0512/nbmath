@@ -4,7 +4,7 @@
 
 ## 安装
 ```bash
-pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v1.1.1/nbmath-1.1.1-py3-none-any.whl
+pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v1.1.2/nbmath-1.1.2-py3-none-any.whl
 ```
 
 ## 快速开始
@@ -82,6 +82,7 @@ from nbmath.stats import mode
 from nbmath.optimize import simulated_annealing
 from nbmath import plots as plt
 import math
+import os
 
 #求解x^4-10x^2+9=0
 roots = solve(1, 0, -10, 0, 9)
@@ -106,6 +107,9 @@ plt.drawaxhline()
 plt.plot_function(lambda x: math.sin(x), -2*math.pi, 2*math.pi)
 plt.rect(1, 1, 1.5, 0.5, "red") #绘制一个左下角(1,1),长1.5,宽0.5的红色矩形
 plt.keep_window()
+
+#绘制威尔斯特拉斯函数
+os.system("python -m nbmath.plots.examples.weierstrass")
 ```
 
 ## 许可证
