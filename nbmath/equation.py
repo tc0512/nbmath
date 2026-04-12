@@ -1,6 +1,12 @@
-from cmath import sqrt, cos, sin
-import math
-I = 1j
+def cbrt(x):
+    if isinstance(x, complex):
+        return x**(1/3)
+    elif x>=0:
+        return x**(1/3)
+    elif x<0:
+        return -(-x)**(1/3)
+def sqrt(x):
+    return x**0.5
 def solve_linear_equation_in_one_unknown(a, b): #一元一次方程
     return float('nan') if a==0 else [-b/a]
 def solve_quadratic_equation(a, b, c): #一元二次方程
@@ -9,29 +15,17 @@ def solve_quadratic_equation(a, b, c): #一元二次方程
     x1 = (-b+sqrt(b**2-4*a*c))/(2*a)
     x2 = (-b-sqrt(b**2-4*a*c))/(2*a)
     return [x1, x2]
-def solve_cubic_equation_in_one_unknown(a, b, c, d):#一元三次方程
+def solve_cubic_equation_in_one_unknown(a, b, c, d):
     if a==0:
         return float('nan')
-    if b==0 and c==0: #特判x^3+d/a=0
-        rhs = -d/a
-        if rhs==0:
-            return [0, 0, 0]
-        r = abs(rhs)**(1/3)
-        theta = 0 if rhs>0 else math.pi
-        roots = []
-        for k in range(3):
-            angle = theta+2*k*math.pi/3
-            roots.append(r*(math.cos(angle)+1j*math.sin(angle)))
-        return roots
-    r_candidate = -b/(3*a)
-    expected_b = 3*a*r_candidate
-    expected_c = 3*a*r_candidate**2
-    expected_d = a*r_candidate**3
-    if (abs(b + expected_b) < 1e-10 and
-        abs(c - expected_c) < 1e-10 and
-        abs(d + expected_d) < 1e-10):
-        return [r_candidate] * 3
-    return [-(-3*c/a + b**2/a**2)/(3*(sqrt(-4*(-3*c/a + b**2/a**2)**3 + (27*d/a - 9*b*c/a**2 + 2*b**3/a**3)**2)/2 + 27*d/(2*a) - 9*b*c/(2*a**2) + b**3/a**3)**(1/3)) - (sqrt(-4*(-3*c/a + b**2/a**2)**3 + (27*d/a - 9*b*c/a**2 + 2*b**3/a**3)**2)/2 + 27*d/(2*a) - 9*b*c/(2*a**2) + b**3/a**3)**(1/3)/3 - b/(3*a), -(-3*c/a + b**2/a**2)/(3*(-1/2 - sqrt(3)*I/2)*(sqrt(-4*(-3*c/a + b**2/a**2)**3 + (27*d/a - 9*b*c/a**2 + 2*b**3/a**3)**2)/2 + 27*d/(2*a) - 9*b*c/(2*a**2) + b**3/a**3)**(1/3)) - (-1/2 - sqrt(3)*I/2)*(sqrt(-4*(-3*c/a + b**2/a**2)**3 + (27*d/a - 9*b*c/a**2 + 2*b**3/a**3)**2)/2 + 27*d/(2*a) - 9*b*c/(2*a**2) + b**3/a**3)**(1/3)/3 - b/(3*a), -(-3*c/a + b**2/a**2)/(3*(-1/2 + sqrt(3)*I/2)*(sqrt(-4*(-3*c/a + b**2/a**2)**3 + (27*d/a - 9*b*c/a**2 + 2*b**3/a**3)**2)/2 + 27*d/(2*a) - 9*b*c/(2*a**2) + b**3/a**3)**(1/3)) - (-1/2 + sqrt(3)*I/2)*(sqrt(-4*(-3*c/a + b**2/a**2)**3 + (27*d/a - 9*b*c/a**2 + 2*b**3/a**3)**2)/2 + 27*d/(2*a) - 9*b*c/(2*a**2) + b**3/a**3)**(1/3)/3 - b/(3*a)]
+    p = (3*a*c-b**2)/(3*a**2)
+    q = (2*b**3-9*a*b*c+27*a**2*d)/(27*a**3)
+    w = -1/2+sqrt(3)/2*1j
+    term = sqrt((q/2)**2+(p/3)**3)
+    x1 = (cbrt(-q/2+term)+cbrt(-q/2-term))-b/(3*a)
+    x2 = (w*cbrt(-q/2+term)+w**2*cbrt(-q/2-term))-b/(3*a)
+    x3 = (w**2*cbrt(-q/2+term)+w*cbrt(-q/2-term))-b/(3*a)
+    return [x1, x2, x3]
 def solve_quartic_equation(a, b, c, d, e):
     if a==0:
         return float('nan')
