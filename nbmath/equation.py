@@ -1,3 +1,4 @@
+import math
 def cbrt(x):
     if isinstance(x, complex):
         return x**(1/3)
@@ -27,6 +28,8 @@ def solve_cubic_equation_in_one_unknown(a, b, c, d):
     x3 = (w**2*cbrt(-q/2+term)+w*cbrt(-q/2-term))-b/(3*a)
     return [x1, x2, x3]
 def solve_quartic_equation(a, b, c, d, e):
+    I = 1j
+    from cmath import cos, sin
     if a==0:
         return float('nan')
     r_candidate = -b/(4*a)
