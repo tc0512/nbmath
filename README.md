@@ -4,7 +4,7 @@
 
 ## 安装
 ```bash
-pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v1.1.2/nbmath-1.1.2-py3-none-any.whl
+pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v1.1.3/nbmath-1.1.3-py3-none-any.whl
 ```
 
 ## 快速开始
