@@ -33,7 +33,7 @@ def main():
             plt.point(j, i, color, 1, "")
             plotted = i*width+j
             print(f"\rplotting...{plotted}/{total} {plotted/total*100:.2f}%", end="")
-    print("Ok,done.")
+    print("\nOk,done.")
     plt.keep_window()
 if __name__ == "__main__":
     main()
