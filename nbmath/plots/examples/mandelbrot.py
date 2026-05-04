@@ -15,9 +15,9 @@ def main():
     ymin, ymax = -1.5, 1.5
     plt.window(width, height)
     plt.setax(xmin, ymin, xmax, ymax)
-    plt.drawaxhline()
+    #plt.drawaxhline()
     total = width * height
-    points = []
+    #points = []
     for i in range(height):
         for j in range(width):
             x = xmin + (xmax - xmin) * j / width
@@ -29,9 +29,10 @@ def main():
             else:
                 brightness = int(255 * iter_count / 100)
                 color = f"#{brightness:02x}{brightness:02x}{brightness:02x}"
-            points.append((j, i))
+            #points.append((j, i))
             plt.point(j, i, color, 1, "")
-            print(f"\rplotting...{i*width+j}/{total}", end="")
+            plotted = i*width+j
+            print(f"\rplotting...{plotted}/{total} {plotted/total*100:.2f}%", end="")
     print("Ok,done.")
     plt.keep_window()
 if __name__ == "__main__":
