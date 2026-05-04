@@ -16,7 +16,7 @@ from nbmath.utils import is_odd, zeros
 import os
 
 #解方程
-print(solve(1, -3, 2)) #[(2+0j), (1+0j)]
+print(solve(1, -3, 2)) #x1=2,x2=1
 
 #调用常数
 print(pi()) #3.141592653589793
@@ -98,13 +98,13 @@ TEMP = 100
 COOLING = 0.95
 STEPS = 1000
 TOL = 1e-6
-print(simulated_annealing(F, -5, 5, TEMP, COOLING, STEPS, TOL)) #{'x': -1.581998612252256, 'fun': -2.249992603725974}
+print(simulated_annealing(F, -5, 5, TEMP, COOLING, STEPS, TOL)) #理论值x=±√10/2,f(x)_min=2.25,实际使用中可能存在微小误差,请以实际情况为准
 
 #绘制y=cos(x)
 plt.window(800, 600)
 plt.setax(-2*math.pi, -1.5*math.pi, 2*math.pi, 1.5*math.pi)
 plt.drawaxhline()
-plt.plot_function(lambda x: math.sin(x), -2*math.pi, 2*math.pi)
+plt.fun(lambda x: math.sin(x), -2*math.pi, 2*math.pi, "red", 2, 800)
 plt.rect(1, 1, 1.5, 0.5, "red") #绘制一个左下角(1,1),长1.5,宽0.5的红色矩形
 plt.keep_window()
 
