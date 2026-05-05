@@ -147,7 +147,7 @@ def linear_inequality_lower(a, b): #ax+b<0
         return f"x<{-b/a}"
     elif a<0:
         return f"x>{-b/a}"
-def quardic_inequality(a, b, c, sym): #ax^2+bx+c≠0
+def quardic_inequality(a, b, c, sym: str): #ax^2+bx+c≠0
     if a==0:
         return float('nan')
     delta = b**2-4*a*c
@@ -181,13 +181,13 @@ def quardic_inequality(a, b, c, sym): #ax^2+bx+c≠0
         raise NotImplementedError("don't support this type of parameter")
 def linear_inequality(a, b, sym: str): #一元一次不等式统一接口
     if sym==">":
-        return inequality_larger(a, b)
+        return linear_inequality_larger(a, b)
     elif sym==">=":
-        return inequality_larger_and_equal(a, b)
+        return linear_inequality_larger_and_equal(a, b)
     elif sym=="<=":
-        return inequality_lower_and_equal(a, b)
+        return linear_inequality_lower_and_equal(a, b)
     elif sym=="<":
-        return inequality_lower(a, b)
+        return linear_inequality_lower(a, b)
     else:
         raise NotImplementedError("don't support this type of parameter")
 def solve(*args): #统一求解函数接口
@@ -197,20 +197,24 @@ def solve(*args): #统一求解函数接口
             return linear_system(A, b)
         a, b = args
         return solve_linear_equation_in_one_unknown(a, b)
-    elif len(args)==3: #三参数->一元二次/不等式
-        if isinstance(args[2], str): #第三参数是字符串->不等式
+    elif len(args)==3: #三参数->一元二次方程/一元一次不等式
+        if isinstance(args[2], str): #第三参数是字符串->一元一次不等式
             a, b, sym = args
-            return inequality(a, b, sym)
-        else: #第三参数不是字符串->一元二次
+            return linear_inequality(a, b, sym)
+        else: #第三参数不是字符串->一元二次方程
             a, b, c = args
             return solve_quadratic_equation(a, b, c)
-    elif len(args)==4: #四参数->一元三次/牛顿法
+    elif len(args)==4: #四参数->一元三次/牛顿法/一元二次不等式
         if isinstance(args[0], list): #第一参数为列表->牛顿法
             fx, x0, depth, tol = args
             return newton_solver(fx, x0, depth, tol)
-        else: #第一参数不是列表->一元三次
-            a, b, c, d = args
-            return solve_cubic_equation_in_one_unknown(a, b, c, d)
+        else: #第一参数不是列表->一元三次/一元二次不等式
+            if isinstance(args[3], str): #第四参数是字符串->一元二次不等式
+                a, b, c, sym = args
+                return quardic_inequality(a, b, c, sym)
+            else: #第四参数不是字符串->一元三次
+                a, b, c, d = args
+                return solve_cubic_equation_in_one_unknown(a, b, c, d)
     elif len(args)==5: #五参数->一元四次
         a, b, c, d, e = args
         return solve_quartic_equation(a, b, c, d, e)
