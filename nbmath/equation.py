@@ -1,13 +1,27 @@
 import math
-def cbrt(x):
+def cbrt(x): #三次根号
     if isinstance(x, complex):
         return x**(1/3)
     elif x>=0:
         return x**(1/3)
     elif x<0:
         return -(-x)**(1/3)
-def sqrt(x):
+def sqrt(x): #二次根号
     return x**0.5
+class EmptySet: #不等式无解空集类
+    def __repr__(self):
+        return "EmptySet"
+    def __bool__(self):
+        return False
+    def __contians__(self):
+        return False
+class Reals: #不等式全体实数类
+    def __repr__(self):
+        return "Reals"
+    def __bool__(self):
+        return True
+    def __contains__(self):
+        return True
 def solve_linear_equation_in_one_unknown(a, b): #一元一次方程
     return float('nan') if a==0 else [-b/a]
 def solve_quadratic_equation(a, b, c): #一元二次方程
@@ -105,35 +119,67 @@ def linear_system(A, b): #线性方程组
         s = sum(aug[i][j]*x[j] for j in range(i+1, n))
         x[i] = (aug[i][n]-s)/aug[i][i]
     return x
-def inequality_larger(a, b): #ax+b>0
+def linear_inequality_larger(a, b): #ax+b>0
     if a==0:
         return float('nan')
     elif a>0:
         return f"x>{-b/a}"
     elif a<0:
         return f"x<{-b/a}"
-def inequality_larger_and_equal(a, b): #ax+b≥0
+def linear_inequality_larger_and_equal(a, b): #ax+b≥0
     if a==0:
         return float('nan')
     elif a>0:
-        return f"x≥{-b/a}"
+        return f"x>={-b/a}"
     elif a<0:
-        return f"x≤{-b/a}"
-def inequality_lower_and_equal(a, b): #ax+b≤0
+        return f"x<={-b/a}"
+def linear_inequality_lower_and_equal(a, b): #ax+b≤0
     if a==0:
         return float('nan')
     elif a>0:
-        return f"x≤{-b/a}"
+        return f"x<={-b/a}"
     elif a<0:
-        return f"x≥{-b/a}"
-def inequality_lower(a, b): #ax+b<0
+        return f"x>={-b/a}"
+def linear_inequality_lower(a, b): #ax+b<0
     if a==0:
         return float('nan')
     elif a>0:
         return f"x<{-b/a}"
     elif a<0:
         return f"x>{-b/a}"
-def inequality(a, b, sym: str): #不等式统一接口
+def quardic_inequality(a, b, c, sym): #ax^2+bx+c≠0
+    if a==0:
+        return float('nan')
+    delta = b**2-4*a*c
+    if delta<0:
+        if sym in [">", ">="]:
+            return Reals()
+        elif sym in ["<", "<="]:
+            return EmptySet()
+    elif delta==0:
+        x0 = -b/(2*a)
+        if sym==">":
+            return f"x!={x0}"
+        elif sym=="<":
+            return EmptySet()
+        elif sym==">=":
+            return Reals()
+        elif sym=="<=":
+            return x0
+    elif delta>0:
+        roots = [(-b+math.sqrt(delta))/(2*a), (-b-math.sqrt(delta))/(2*a)]
+        x1, x2 = min(roots), max(roots)
+        if sym==">":
+            return f"(x<{x1})&(x>{x2})"
+        elif sym=="<":
+            return f"{x1}<x<{x2}"
+        elif sym==">=":
+            return f"(x<={x1})&(x>={x2})"
+        elif sym=="<=":
+            return f"{x1}<=x<={x2}"
+    else:
+        raise NotImplementedError("don't support this type of parameter")
+def linear_inequality(a, b, sym: str): #一元一次不等式统一接口
     if sym==">":
         return inequality_larger(a, b)
     elif sym==">=":
