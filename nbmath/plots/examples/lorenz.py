@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from nbmath.plots import core as plt
 def lorenz(t_max, dt):
     x = 0.1
@@ -16,7 +17,7 @@ def lorenz(t_max, dt):
         z += dt*dz
         plt.point(x, z, "purple", 2, "")
         percent = (i+1)/depth*100
-        print(f"\rplotting...{percent:.2f}%", end="")
+        print(f"\rplotting...{i+1}/{depth} {percent:.2f}%", end="")
     print("\nOk,done.")
     plt.keep_window()
 def main():
