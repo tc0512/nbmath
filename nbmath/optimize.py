@@ -74,7 +74,7 @@ def gradient_descent(f, x0, lr, tol, max_iter: int): #梯度下降
     """
     x = x0
     for i in range(max_iter):
-        df = ndiff(f, x)
+        df = ndiff1(f, x)
         if abs(df)<tol:
             return {"x": x, "fun": f(x)}
         x = x - lr * df
