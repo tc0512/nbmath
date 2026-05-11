@@ -5,5 +5,6 @@ from . import cantor_stair
 from . import mandelbrot
 from . import weierstrass
 from . import lorenz
+from . import barnsley
 
-__all__ = ['sin', 'heart', 'lissajous', 'cantor_stair', 'mandelbrot', 'weierstrass', 'lorenz']
+__all__ = ['sin', 'heart', 'lissajous', 'cantor_stair', 'mandelbrot', 'weierstrass', 'lorenz', 'barnsley']
