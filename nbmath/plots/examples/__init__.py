@@ -7,5 +7,6 @@ from . import weierstrass
 from . import lorenz
 from . import barnsley
 from . import random_walk
+from . import julia
 
-__all__ = ['sin', 'heart', 'lissajous', 'cantor_stair', 'mandelbrot', 'weierstrass', 'lorenz', 'barnsley', 'random_walk']
+__all__ = ['sin', 'heart', 'lissajous', 'cantor_stair', 'mandelbrot', 'weierstrass', 'lorenz', 'barnsley', 'random_walki', 'julia']
