@@ -26,8 +26,8 @@ def main():
             elif iter_count<=99:
                 color = "aqua"
             plt.point(x, y, color, 1, "")
-        plotted = i*720+j
-        print(f"\rplotting...{plotted}/{total} {plotted/total*100:.2f}%", end="")
+            plotted = i*720+j
+            print(f"\rplotting...{plotted}/{total} {plotted/total*100:.2f}%", end="")
     print("\nOk,done.")
     plt.keep_window()
 if __name__=="__main__":
