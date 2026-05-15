@@ -10,27 +10,29 @@ def mandelbrot(c, max_iter=100):
         z = z*z + c
     return max_iter
 def main():
-    width, height = 800, 600
+    width, height = 400, 300
     xmin, xmax = -2.5, 1.5
     ymin, ymax = -1.5, 1.5
     plt.window(width, height)
     plt.setax(xmin, ymin, xmax, ymax)
-    #plt.drawaxhline()
     total = width * height
-    #points = []
     for i in range(height):
         for j in range(width):
             x = xmin + (xmax - xmin) * j / width
             y = ymin + (ymax - ymin) * i / height
             c = complex(x, y)
             iter_count = mandelbrot(c)
-            if iter_count == 100:
+            if iter_count==100:
                 color = "black"
-            else:
-                brightness = int(255 * iter_count / 100)
-                color = f"#{brightness:02x}{brightness:02x}{brightness:02x}"
-            #points.append((j, i))
-            plt.point(j, i, color, 1, "")
+            elif iter_count<=25:
+                color = "red"
+            elif iter_count<=50:
+                color = "orange"
+            elif iter_count<=75:
+                color = "yellow"
+            elif iter_count<=99:
+                color = "aqua"
+            plt.point(x, y, color, 1, "")
             plotted = i*width+j
             print(f"\rplotting...{plotted}/{total} {plotted/total*100:.2f}%", end="")
     print("\nOk,done.")
