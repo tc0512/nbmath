@@ -1,4 +1,4 @@
-import time
+import math
 def diff(fx: list): #求导
     n = len(fx)
     if n == 0:
@@ -24,13 +24,6 @@ def linspace(start, end, steps): #np.linspace的纯python实现
         x = start+i*dx
         result.append(x)
     return result
-def timer(func): #计时器
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        result = func(*args, **kwargs)
-        print(f"function {func.__name__} used {time.time()-start:.4f} seconds")
-        return result
-    return wrapper
 def gcd(a: int, b: int): #最大公约数
     while b:
         a, b = b, a%b
@@ -105,3 +98,9 @@ def add_2d_to_1d(A: list, b: list):
         for j in range(n):
             mat[i][j] = A[i][j]+b[j]
     return mat
+def sqrtdenest(a, b, c):
+    delta = a**2-b**2*c
+    if math.sqrt(delta)!=int(math.sqrt(delta)):
+        raise ValueError("cannot simplify this redical")
+    x, y = (a+delta)/2, (a-delta)/2
+    return f"sqrt({x})+sqrt({y})"
