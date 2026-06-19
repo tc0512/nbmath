@@ -4,7 +4,7 @@
 
 ## 安装
 ```bash
-pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v1.2.0/nbmath-1.2.0-py3-none-any.whl
+pip install https://ghproxy.net/https://github.com/tc0512/nbmath/releases/download/v1.3.0/nbmath-1.3.0-py3-none-any.whl
 ```
 
 ## 快速开始
@@ -63,17 +63,19 @@ print(zeros(10, 10))
 - `timer`计时器
 - `is_even` `is_odd`奇偶数判断
 - `eye`单位矩阵 `ones` `zeros`全一/全零矩阵
+- `lstsq` 最小二乘
 ### 优化算法模块`nbmath.optimize`
 - `brute`咆哮算法
 - `golden_section`黄金分割法
 - `newton`牛顿法
 - `gradient_descent`梯度下降
 - `simulated_annealing`模拟退火
+- 重磅发布: `BFGS`
 ### 绘图模块`nbmath.plots`
 - `point`描点 `scatter`散点图
 - `line`线段 `fun`绘制函数F(x)
 - `rect`矩形
-- `mandelbrot` `heart`等共6个示例图案
+- `mandelbrot` `newton`等多个示例图案
 
 ## 示例代码
 ```python
