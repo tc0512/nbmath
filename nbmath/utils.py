@@ -1,13 +1,7 @@
 import math
-def diff(fx: list): #求导
-    n = len(fx)
-    if n == 0:
-        return float('nan')
-    elif n == 1:
-        return [0]
-    return [fx[i] * (n - 1 - i) for i in range(n - 1)]
+def diff(f, x, h=1e-6): #求导
+    return (f(x+h)-f(x-h))/(2*h)
 def polyfit(x: list, y: list): #多项式拟合
-def polyfit(x, y):
     if len(x) != len(y):
         raise ValueError("x and y must have the same length")
     n = len(x)
@@ -118,20 +112,10 @@ def eye(n: int): #单位矩阵
     if n==0:
         return []
     if n==1:
-        return [1]
+        return [[1]]
     mat = zeros(n, n)
     for i in range(n):
         mat[i][i] = 1
-    return mat
-def add_2d_to_1d(A: list, b: list): #矩阵加向量
-    n = len(A[0])
-    if n!=len(b):
-        raise ValueError("length of two lists didn't matched")
-    m = len(A)
-    mat = zeros(m, n)
-    for i in range(m):
-        for j in range(n):
-            mat[i][j] = A[i][j]+b[j]
     return mat
 def sqrtdenest(a, b, c): #双层根号
     delta = a**2-b**2*c
