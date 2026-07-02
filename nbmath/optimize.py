@@ -1,16 +1,16 @@
 import math
 import random
 from .utils import eye, ngrad
-def brute(f, x_min, x_max, steps: int): #咆哮算法
+def brute(f, x_min, x_max, points: int): #咆哮算法
     """
     f：要求解的函数
     x_min：定义域最小
     x_max：定义域最大
-    steps：选取点数
+    points：选取点数
     """
     results = []
     x = x_min
-    step_length = (x_max-x_min)/steps
+    step_length = (x_max-x_min)/points
     while x<=x_max:
         results.append(f(x))
         x+=step_length
@@ -215,3 +215,28 @@ def BFGS(f, x0, tol, max_iter, alpha_init, grad=None):
         "converged": False,
         "grad_norm": norm(grad(x))
     }
+OPTIONS = {
+    "x_min": -10,
+    "x_max": 10,
+    "points": 1000000,
+    "tol": 1e-7,
+    "x0": 0,
+    "max_iter": 550,
+    "lr": 0.06,
+    "temp": 1000,
+    "cooling": 0.95,
+    "steps": 1000,
+    "alpha_int": 1
+}
+def minimize(fun, x0, method="BFGS", options=OPTIONS):
+    if method=="Brute":
+        f, x_min, x_max, points = f, options["x_min"], options["x_max"], options["points"]
+        return brute(fun, x_min, x_max, steps)
+    elif method=="Golden Section":
+        f, x_min, x_max, tol = f, options["x_min"], options["x_max"], options["tol"]
+        return golden_section(f, x_min, x_max, tol)
+    elif method=="Newton":
+        f, x0, tol, max_iter = f, options["x0"], options["tol"], options["max_iter"]
+        return newton(f, x0, tol, max_iter)
+    elif method=="gradient_descent"
+        f, x0, lr, tol, max_iter = f, options["x0"], options["lr"], options["tol"], options["max_iter"]
