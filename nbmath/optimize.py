@@ -226,7 +226,7 @@ OPTIONS = {
     "temp": 1000,
     "cooling": 0.95,
     "steps": 1000,
-    "alpha_int": 1
+    "alpha_init": 1
 }
 def minimize(fun, x0, method="BFGS", options=OPTIONS):
     if method=="Brute":
@@ -238,5 +238,11 @@ def minimize(fun, x0, method="BFGS", options=OPTIONS):
     elif method=="Newton":
         f, x0, tol, max_iter = f, options["x0"], options["tol"], options["max_iter"]
         return newton(f, x0, tol, max_iter)
-    elif method=="gradient_descent"
+    elif method=="Gradient Descent":
         f, x0, lr, tol, max_iter = f, options["x0"], options["lr"], options["tol"], options["max_iter"]
+    elif method=="Simulated Annealing":
+        f, x_min, x_max, temp, cooling, steps, tol = f, options["x_min"], options["x_max"], options["temp"], options["cooling"], options["steps"], options["tol"]
+        return simulated_annealing(f, x_min, x_max, temp, cooling, steps, tol)
+    elif method=="BFGS":
+        f, x0, tol, max_iter, alpha_init = f, options["x0"], options["tol"], options["alpha_init"]
+    raise NotImplementedError("Sorry, we havn't implemented this algorithm yet.")
