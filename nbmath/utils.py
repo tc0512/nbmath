@@ -168,19 +168,3 @@ def lstsq(A, b):
             s -= aug[i][j] * x[j]
         x[i] = s / aug[i][i]
     return x
-def pochhammer(x, n):
-    res = 1
-    for i in range(n):
-        res*=x+i
-    return res
-def hyp_pfq(a: list, b: list, z, max_iter=20):
-    res = 0
-    for n in range(max_iter):
-        u = 1
-        for p in a:
-            u*=pochhammer(p, n)
-        v = 1
-        for q in b:
-            v*=pochhammer(q, n)
-        res+=u/v*z**n/math.factorial(n)
-    return res
