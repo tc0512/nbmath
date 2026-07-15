@@ -40,5 +40,13 @@ def neumann(x, alpha: float):
     return (bessel(x, alpha)*math.cos(alpha*math.pi)-bessel(x, -alpha))/math.sin(alpha*pi)
 def beta(x, y):
     return gamma(x)*gamma(y)/gamma(x+y)
-def elliptic_integral(k):
+def first_elliptic_integral(k):
     return math.pi/2*hyp_pfq([1/2, 1/2], [1], k**2)
+def second_elliptic_integral(k, dx=1e-6):
+    total = 0
+    x = 0
+    while x<=math.pi/2:
+        fx = math.sqrt(1-k**2*math.sin(x)**2)
+        total+=fx*dx
+        x+=dx
+    return total
