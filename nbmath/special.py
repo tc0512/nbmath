@@ -1,5 +1,4 @@
 import math
-from .utils import diff
 def pochhammer(x, n):
     res = 1
     for i in range(n):
@@ -37,5 +36,9 @@ def bessel(x, alpha):
         J+=term
         m+=1
     return J
-def neumann(x, alpha):
+def neumann(x, alpha: float):
     return (bessel(x, alpha)*math.cos(alpha*math.pi)-bessel(x, -alpha))/math.sin(alpha*pi)
+def beta(x, y):
+    return gamma(x)*gamma(y)/gamma(x+y)
+def elliptic_integral(k):
+    return math.pi/2*hyp_pfq([1/2, 1/2], [1], k**2)
