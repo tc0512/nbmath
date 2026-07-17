@@ -70,12 +70,17 @@ print(zeros(10, 10))
 - `newton`牛顿法
 - `gradient_descent`梯度下降
 - `simulated_annealing`模拟退火
-- 重磅发布: `BFGS`
+- `BFGS`拟牛顿法
 ### 绘图模块`nbmath.plots`
 - `point`描点 `scatter`散点图
 - `line`线段 `fun`绘制函数F(x)
 - `rect`矩形
 - `mandelbrot` `newton`等多个示例图案
+### 特殊函数
+- `gamma`伽马函数 `zeta`黎曼ζ函数
+- 第一、二类贝塞尔
+- LambertW函数
+- `pochhammer`上升阶乘 `hyp_pfq`超几何函数
 
 ## 示例代码
 ```python

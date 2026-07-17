@@ -56,17 +56,44 @@ def zeta(s, max_iter=100):
     if s==-1:
         return -1/12
     return sum([1/(n**s) for n in range(max_iter)])
-def lambertW(x, branch=0):
-    if x == -1/e:
-        return -1
-    # 选初始值
+import math
+
+def lambert_w(x, branch=0, max_iter=30, tol=1e-14):
+    e = math.exp(1)
+    one_over_e = 1.0 / e
+    if x < -one_over_e:
+        raise ValueError(f"x = {x} < -1/e，实数范围内无解")
+    if x == -one_over_e:
+        return -1.0
+    if x == 0.0:
+        return 0.0
     if branch == 0:
-        w = max(-0.9, log(1+x))  # 保证 > -1
+        # W_0 主分支: w >= -1
+        if -one_over_e < x < -0.1:
+            w = -1.0 + math.sqrt(2 * (e * x + 1))
+        else:
+            w = math.log(1.0 + x) if x > -0.5 else 0.0
+        if w <= -1.0:
+            w = -0.999
+    elif branch == -1:
+        if x >= 0:
+            raise ValueError(f"W_{-1} 在 x >= 0 时无实数值")
+        if x > -0.1:
+            w = -math.log(-x) - math.log(-math.log(-x))
+        else:
+            w = -1.0 - math.sqrt(2 * (e * x + 1))
+        if w >= -1.0:
+            w = -1.001
     else:
-        w = min(-1.1, log(-x))   # 保证 < -1
-    # 牛顿迭代
-    for _ in range(20):
-        if abs(w + 1) < 1e-15:   # 防分母为零
+        raise ValueError("branch only can equal 0 or -1")
+    for i in range(max_iter):
+        if abs(w + 1.0) < 1e-15:
             w += 1e-12
-        w = w - (w - x * exp(-w)) / (w + 1)
+        ew = math.exp(w)
+        f = w * ew - x
+        df = ew * (w + 1.0)
+        w_new = w - f / df
+        if abs(w_new - w) < tol * abs(w_new):
+            return w_new
+        w = w_new
     return w
