@@ -50,3 +50,23 @@ def second_elliptic_integral(k, dx=1e-6):
         total+=fx*dx
         x+=dx
     return total
+def zeta(s, max_iter=100):
+    if s==1:
+        return float('inf')
+    if s==-1:
+        return -1/12
+    return sum([1/(n**s) for n in range(max_iter)])
+def lambertW(x, branch=0):
+    if x == -1/e:
+        return -1
+    # 选初始值
+    if branch == 0:
+        w = max(-0.9, log(1+x))  # 保证 > -1
+    else:
+        w = min(-1.1, log(-x))   # 保证 < -1
+    # 牛顿迭代
+    for _ in range(20):
+        if abs(w + 1) < 1e-15:   # 防分母为零
+            w += 1e-12
+        w = w - (w - x * exp(-w)) / (w + 1)
+    return w
