@@ -156,7 +156,7 @@ def lstsq(A, b):
         aug[col], aug[max_row] = aug[max_row], aug[col]
         pivot = aug[col][col]
         if abs(pivot) < 1e-15:
-            raise ValueError("矩阵奇异，无法求解")
+            raise ValueError("Sorry,I'm afraid I can't deal with singular matrix.")
         for i in range(col + 1, n):
             factor = aug[i][col] / pivot
             for j in range(col, n + 1):
@@ -168,3 +168,9 @@ def lstsq(A, b):
             s -= aug[i][j] * x[j]
         x[i] = s / aug[i][i]
     return x
+def qfactor(a, b, c):
+    delta = b**2-4*a*c
+    if delta<0:
+        raise ValueError("Delta is lower than zero,cannot operate.")
+    x1, x2 = (-b+math.sqrt(delta))/(2*a), (-b-math.sqrt(delta))/(2*a)
+    return f"(x-{x1})(x-{x2})"

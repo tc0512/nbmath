@@ -7,10 +7,10 @@ from . import utils
 
 __all__ = [
     'const',
-    'equation', 
+    'equation',
     'geo',
     'plots',
     'stats',
     'utils'
 ]
-__version__ = "1.4.0"
+__version__ = "1.4.1"

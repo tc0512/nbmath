@@ -63,7 +63,7 @@ print(zeros(10, 10))
 - `timer`计时器
 - `is_even` `is_odd`奇偶数判断
 - `eye`单位矩阵 `ones` `zeros`全一/全零矩阵
-- `lstsq` 最小二乘
+- `lstsq` 最小二乘 `qfactor`二次三项式因式分解
 ### 优化算法模块`nbmath.optimize`
 - `brute`咆哮算法
 - `golden_section`黄金分割法
