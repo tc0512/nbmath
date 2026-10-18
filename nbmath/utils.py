@@ -173,4 +173,4 @@ def qfactor(a, b, c):
     if delta<0:
         raise ValueError("Delta is lower than zero,cannot operate.")
     x1, x2 = (-b+math.sqrt(delta))/(2*a), (-b-math.sqrt(delta))/(2*a)
-    return f"(x-{x1})(x-{x2})"
+    return f"{a}(x-({x1}))(x-({x2}))"
