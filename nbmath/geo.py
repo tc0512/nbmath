@@ -3,77 +3,81 @@ class Point: #点
     def __init__(self, x, y):
         self.x = x
         self.y = y
-    def expression(self): #表达式
-        return f"({self.x}, {self.y})"
-def dist(p1, p2): #两点距离
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+def dist(p1: Point, p2: Point): #两点距离
     return math.sqrt((p2.x-p1.x)**2+(p2.y-p1.y)**2)
-class Line: #线段
-    def __init__(self, p1, p2): #p1,p2均为Point几何对象
+class Seg: #线段
+    def __init__(self, p1: Point, p2: Point):
         self.p1 = p1
         self.p2 = p2
+    def __repr__(self):
+        return f"Line({self.p1}, {self.p2})"
     def length(self): #长度
         return dist(self.p1, self.p2)
     def midpoint(self): #中点
         return Point((self.p1.x+self.p2.x)/2, (self.p1.y+self.p2.y)/2)
-    def expression(self): #表达式
-        if self.p2.x==self.p1.x:
-            y_min = min(self.p1.y, self.p2.y)
-            y_max = max(self.p1.y, self.p2.y)
-            return f"x={self.p1.x}{{{y_min}≤y≤{y_max}}}"
-        k = (self.p2.y-self.p1.y)/(self.p2.x-self.p1.x)
-        b = self.p1.y-k*self.p1.x
-        x_min = min(self.p1.x, self.p2.x)
-        x_max = max(self.p1.x, self.p2.x)
-        if k!=0:
-            if b>0:
-                return f"y={k}x+{b}{{{x_min}≤x≤{x_max}}}"
-            elif b==0:
-                return f"y={k}x{{{x_min}≤x≤{x_max}}}"
-            elif b<0:
-                return f"y={k}x-{-b}{{{x_min}≤x≤{x_max}}}"
-        else:
-            return f"y={b}{{{x_min}≤x≤{x_max}}}"
+    def equation(self): #表达式
+        A = self.p1.y-self.p2.y
+        B = self.p2.x-self.p1.x
+        C = self.p1.x*self.p2.y-self.p2.x*self.p1.y
+        return [A, B, C]
+    def eqdomain(self): #表达式定义域
+        s = min(self.p1.x, self.p2.x)
+        f = max(self.p1.x, self.p2.x)
+        return [s, f]
+class Ray: #射线
+    def __init__(self, p1: Point, p2: Point):
+        self.p1 = p1
+        self.p2 = p2
+    def __repr__(self):
+        return f"Ray({self.p1}, {self.p2})"
+    def equation(self): #表达式
+        A = self.p1.y-self.p2.y
+        B = self.p2.x-self.p1.x
+        C = self.p1.x*self.p2.y-self.p2.x*self.p1.y
+        return [A, B, C]
+    def eqdomain(self): #表达式定义域
+        lim = self.p1.x
+        return [lim, ">="] if self.p2.x>self.p1.x else [lim, "<="] #[极值, 符号]
+class Line: #直线
+    def __init__(self, p1: Point, p2: Point):
+        self.p1 = p1
+        self.p2 = p2
+    def __repr__(self):
+        return f"Line({self.p1}, {self.p2})"
+    def equation(self): #表达式
+        A = self.p1.y-self.p2.y
+        B = self.p2.x-self.p1.x
+        C = self.p1.x*self.p2.y-self.p2.x*self.p1.y
+        return [A, B, C]
 class Circle: #圆
-    def __init__(self, O, r): #圆心是Point几何对象
+    def __init__(self, O: Point, r):
         self.O = O
         self.r = r
+    def __repr__(self):
+        return f"Circle({self.O}, {self.r})"
     def area(self): #面积
         return math.pi*self.r**2
     def circumference(self): #周长
         return 2*math.pi*self.r
     def diameter(self): #直径
         return 2*self.r
-    def contains(self, point): #是否在圆内
+    def contains(self, point: Point): #是否在圆内
         return dist(self.O, point)<=self.r
-    def expression(self): #表达式
-        a = self.O.x
-        b = self.O.y
-        if a>0:
-            if b>0:
-                return f"(x-{a})^2+(y-{b})^2={self.r**2}"
-            elif b==0:
-                return f"(x-{a})^2+y^2={self.r**2}"
-            elif b<0:
-                return f"(x-{a})^2+(y+{-b})^2={self.r**2}"
-        elif a==0:
-            if b>0:
-                return f"x^2+(y-{b})^2={self.r**2}"
-            elif b==0:
-                return f"x^2+y^2={self.r**2}"
-            elif b<0:
-                return f"x^2+(y+{-b})^2={self.r**2}"
-        elif a<0:
-            if b>0:
-                return f"(x+{-a})^2+(y-{b})^2={self.r**2}"
-            elif b==0:
-                return f"(x+{-a})^2+y^2={self.r**2}"
-            elif b<0:
-                return f"(x+{-a})^2+(y+{-b})^2={self.r**2}"
+    def equation(self): #表达式
+        A = 1
+        B = 0
+        C = 1
+        D = -2*self.O.x
+        E = -2*self.O.y
+        F = self.O.x**2+self.O.y**2-self.r**2
+        return [A, B, C, D, E, F]
 class Polygon:
     def __init__(self, points): #points是Point几何对象
         self.points = points
     def area(self): #面积
-        n = len(self.points) 
+        n = len(self.points)
         if n<3:
             return 0
         s = 0
