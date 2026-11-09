@@ -144,7 +144,7 @@ def intersection(obj1, obj2):
             x2 = (-B1*(A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2 + 2*B1**2))-C1)/A1
             y2 = A1*math.sqrt(A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
             points = []
-            xmin, xmax = obj1.equation()
+            xmin, xmax = obj1.eqdomain()
             if xmin<=x1<=xmax:
                 points.append(Point(x1, y1))
             if xmin<=x2<=xmax:
@@ -199,7 +199,7 @@ def intersection(obj1, obj2):
             x2 = (-B1*(A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2 + 2*B1**2))-C1)/A1
             y2 = A1*math.sqrt(A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
             points = []
-            xmin, xmax = obj1.equation()
+            xmin, xmax = obj1.eqdomain()
             if xmin<=x1<=xmax:
                 points.append(Point(x1, y1))
             if xmin<=x2<=xmax:
@@ -223,3 +223,32 @@ def intersection(obj1, obj2):
                 if min1<=x<=max1 and min2<=x<=max2:
                     points.append(Point(x, y))
             return points
+    if isinstance(obj1, Line):
+        if isinstance(obj2, Seg) or isinstance(obj2, Ray): #直线交线段/射线
+            A1, B1, C1 = obj1.equation()
+            A2, B2, C2 = obj2.equation()
+            if A1*B2==A2*B1:
+                return []
+            x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
+            y = (-A1*C2+A2*C1)/(A1*B2-A2*B1)
+            xmin, xmax = obj2.eqdomain()
+            return [Point(x, y)] if xmin<=x<=xmax else []
+        if isinstance(obj2, Line): #直线交直线
+            A1, B1, C1 = obj1.equation()
+            A2, B2, C2 = obj2.equation()
+            if A1*B2==A2*B1:
+                return []
+            x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
+            y = (-A1*C2+A2*C1)/(A1*B2-A2*B1)
+            return [Point(x, y)]
+        if isinstance(obj2, Circle): #直线交圆
+            A1, B1, C1 = obj1.equation()
+            A2, B2, C2, D2, E2, F2 = obj2.equation()
+            delta = A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2
+            if delta<0 or A1==0:
+                return []
+            x1 = (-B1*(-A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2))-C1)/A1
+            y1 = -A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
+            x2 = (-B1*(A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2 + 2*B1**2))-C1)/A1
+            y2 = A1*math.sqrt(A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
+            return [Point(x1, y1)] if x1==x2 and y1==y2 else [Point(x1, y1), Point(x2, y2)]
