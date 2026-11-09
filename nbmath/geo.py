@@ -39,7 +39,7 @@ class Ray: #射线
         return [A, B, C]
     def eqdomain(self): #表达式定义域
         lim = self.p1.x
-        return [lim, ">="] if self.p2.x>self.p1.x else [lim, "<="] #[极值, 符号]
+        return [lim, float('inf')] if self.p2.x>self.p1.x else [float('-inf'), lim]
 class Line: #直线
     def __init__(self, p1: Point, p2: Point):
         self.p1 = p1
@@ -73,9 +73,11 @@ class Circle: #圆
         E = -2*self.O.y
         F = self.O.x**2+self.O.y**2-self.r**2
         return [A, B, C, D, E, F]
-class Polygon:
-    def __init__(self, points): #points是Point几何对象
+class Polygon: # 多边形
+    def __init__(self, points): #points: list[Point]
         self.points = points
+    def __repr__(self):
+        return f"Polygon({self.points})"
     def area(self): #面积
         n = len(self.points)
         if n<3:
@@ -98,3 +100,62 @@ class Polygon:
             p2 = self.points[(i+1)%n]
             C+=dist(p1, p2)
         return C
+    def segments(self):
+        n = len(self.points)
+        if n<2:
+            return []
+        elif n==2:
+            return [Seg(self.points[0], self.points[1])]
+        segs = []
+        for i in range(n):
+            p1 = self.points[i]
+            p2 = self.points[(i+1)%n]
+            segs.append(Seg(p1, p2))
+        return segs
+def intersection(obj1, obj2):
+    if isinstance(obj1, Seg):
+        if isinstance(obj2, Seg) or isinstance(obj2, Ray): #线段交线段/射线
+            A1, B1, C1 = obj1.equation()
+            A2, B2, C2 = obj2.equation()
+            if A1*B2==A2*B1:
+                return []
+            x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
+            y = (-A1*C2+A2*C1)/(A1*B2-A2*B1)
+            min1, max1 = obj1.eqdomain()
+            min2, max2 = obj2.eqdomain()
+            return [Point(x, y)] if min1<=x<=max1 and min2<=x<=max2 else []
+        if isinstance(obj2, Line): #线段交直线
+            A1, B1, C1 = obj1.equation()
+            A2, B2, C2 = obj2.equation()
+            if A1*B2==A2*B1:
+                return []
+            x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
+            y =(-A1*C2+A2*C1)/(A1*B2-A2*B1)
+            min1, max1 = obj1.eqdomain()
+            return [Point(x, y)] if min1<=x<=max1 else []
+        if isinstance(obj2, Circle): #线段交圆
+            A1, B1, C1 = obj1.equation()
+            A2, B2, C2, D2, E2, F2 = obj2.equation()
+            delta = A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2
+            if delta<0 or A1==0:
+                return []
+            x1 = (-B1*(-A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2))-C1)/A1
+            y1 = -A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
+            x2 = (-B1*(A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2 + 2*B1**2))-C1)/A1
+            y2 = A1*math.sqrt(A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
+            return [Point(x1, y1)] if x1==x2 and y1==y2 else [Point(x1, y1), Point(x2, y2)]
+        if isinstance(obj2, Polygon): #线段交多边形
+            segs = obj2.segments()
+            A1, B1, C1 = obj1.equation()
+            points = []
+            for i in segs:
+                A2, B2, C2 = i.equation()
+                if A1*B2==A2*B1:
+                    continue
+                x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
+                y = (-A1*C2+A2*C1)/(A1*B2-A2*B1)
+                min1, max1 = obj1.eqdomain()
+                min2, max2 = i.equation()
+                if min1<=x<=max1 and min2<=x<=max2:
+                    points.append(Point(x, y))
+            return points
