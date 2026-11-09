@@ -164,7 +164,7 @@ def intersection(obj1, obj2):
                 x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
                 y = (-A1*C2+A2*C1)/(A1*B2-A2*B1)
                 min1, max1 = obj1.eqdomain()
-                min2, max2 = i.equation()
+                min2, max2 = i.eqdomain()
                 if min1<=x<=max1 and min2<=x<=max2:
                     points.append(Point(x, y))
             return points
@@ -219,7 +219,7 @@ def intersection(obj1, obj2):
                 x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
                 y = (-A1*C2+A2*C1)/(A1*B2-A2*B1)
                 min1, max1 = obj1.eqdomain()
-                min2, max2 = i.equation()
+                min2, max2 = i.eqdomain()
                 if min1<=x<=max1 and min2<=x<=max2:
                     points.append(Point(x, y))
             return points
@@ -252,3 +252,17 @@ def intersection(obj1, obj2):
             x2 = (-B1*(A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2 + 2*B1**2))-C1)/A1
             y2 = A1*math.sqrt(A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
             return [Point(x1, y1)] if x1==x2 and y1==y2 else [Point(x1, y1), Point(x2, y2)]
+        if isinstance(obj2, Polygon): #直线交多边形
+            segs = obj2.segments()
+            A1, B1, C1 = obj1.equation()
+            points = []
+            for i in segs:
+                A2, B2, C2 = i.equation()
+                if A1*B2==A2*B1:
+                    continue
+                x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
+                y = (-A1*C2+A2*C1)/(A1*B2-A2*B1)
+                xmin, xmax = i.eqdomain()
+                if xmin<=x<=xmax:
+                    points.append(Point(x, y))
+            return points
