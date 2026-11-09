@@ -188,3 +188,38 @@ def intersection(obj1, obj2):
             y =(-A1*C2+A2*C1)/(A1*B2-A2*B1)
             min1, max1 = obj1.eqdomain()
             return [Point(x, y)] if min1<=x<=max1 else []
+        if isinstance(obj2, Circle): #射线交圆
+            A1, B1, C1 = obj1.equation()
+            A2, B2, C2, D2, E2, F2 = obj2.equation()
+            delta = A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2
+            if delta<0 or A1==0:
+                return []
+            x1 = (-B1*(-A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2))-C1)/A1
+            y1 = -A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
+            x2 = (-B1*(A1*math.sqrt(delta)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2 + 2*B1**2))-C1)/A1
+            y2 = A1*math.sqrt(A1**2*E2**2-4*A1**2*F2-2*A1*B1*D2*E2+4*A1*C1*D2+B1**2*D2**2-4*B1**2*F2+4*B1*C1*E2-4*C1**2)/(2*A1**2+2*B1**2)-(A1**2*E2-A1*B1*D2+2*B1*C1)/(2*A1**2+2*B1**2)
+            points = []
+            xmin, xmax = obj1.equation()
+            if xmin<=x1<=xmax:
+                points.append(Point(x1, y1))
+            if xmin<=x2<=xmax:
+                points.append(Point(x2, y2))
+            if len(points)==2:
+                if points[0]==points[1]:
+                    points = [points[0]]
+            return points
+        if isinstance(obj2, Polygon): #射线交多边形
+            segs = obj2.segments()
+            A1, B1, C1 = obj1.equation()
+            points = []
+            for i in segs:
+                A2, B2, C2 = i.equation()
+                if A1*B2==A2*B1:
+                    continue
+                x = (B1*C2-B2*C1)/(A1*B2-A2*B1)
+                y = (-A1*C2+A2*C1)/(A1*B2-A2*B1)
+                min1, max1 = obj1.eqdomain()
+                min2, max2 = i.equation()
+                if min1<=x<=max1 and min2<=x<=max2:
+                    points.append(Point(x, y))
+            return points
